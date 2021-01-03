@@ -1,0 +1,12 @@
+{
+	"luci-app-cpu-status": {
+		"description": "Grant access to cpu-status procedures",
+		"read": {
+			"file": {
+				"/proc/stat": [ "read" ],
+				"/sys/devices/system/cpu": [ "list" ],
+				"/sys/devices/system/cpu/cpu[0-9]*/cpufreq/cpuinfo_cur_freq": [ "read" ]
+			}
+		}
+	}
+}

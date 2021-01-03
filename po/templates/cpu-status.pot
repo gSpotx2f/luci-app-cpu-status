@@ -1,0 +1,17 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "All"
+msgstr ""
+
+msgid "Load average"
+msgstr ""
+
+msgid "CPU"
+msgstr ""
+
+msgid "Current frequency"
+msgstr ""
+
+msgid "MHz"
+msgstr ""
