@@ -28,14 +28,28 @@ return L.Class.extend({
 			}).catch(e => {
 				window.cpuStatusDevices = [];
 			});
+
+			// Check CPU clock support
+			if(window.cpuStatusDevices.length > 0) {
+				await fs.stat(window.cpuStatusDevices[0][1] + '/cpufreq/cpuinfo_cur_freq').then(stat => {
+					window.cpuStatusFreqSupport = true;
+				}).catch(e => {
+					window.cpuStatusFreqSupport = false;
+				});
+			};
 		};
 
 		let promises = [];
-		promises.push(L.resolveDefault(fs.read('/proc/stat'), null));
 
-		for(let cpu of window.cpuStatusDevices) {
-			promises.push(
-				L.resolveDefault(fs.read(cpu[1] + '/cpufreq/cpuinfo_cur_freq'), null))
+		if(window.cpuStatusDevices.length > 0) {
+			promises.push(L.resolveDefault(fs.read('/proc/stat'), null));
+
+			if(window.cpuStatusFreqSupport) {
+				for(let cpu of window.cpuStatusDevices) {
+					promises.push(
+						L.resolveDefault(fs.read(cpu[1] + '/cpufreq/cpuinfo_cur_freq'), null))
+				};
+			};
 		};
 
 		return Promise.all(promises).catch(e => {});
@@ -58,8 +72,9 @@ return L.Class.extend({
 		let cpuTable = E('div', { 'class': 'table' },
 			E('div', { 'class': 'tr table-titles' }, [
 				E('div', { 'class': 'th left' }, _('CPU')),
-				E('div', { 'class': 'th left' }, _('Current frequency')),
-				E('div', { 'class': 'th left' }, _('Load average')),
+				(window.cpuStatusFreqSupport) ?
+						E('div', { 'class': 'th left' }, _('Current frequency')) : '',
+				E('div', { 'class': 'th left' }, _('Load')),
 				E('div', { 'class': 'th left' }, 'user'),
 				E('div', { 'class': 'th left' }, 'nice&#160;&#160;'),
 				E('div', { 'class': 'th left' }, 'system'),
@@ -102,8 +117,10 @@ return L.Class.extend({
 				E('div', { 'class': 'tr' }, [
 					E('div', { 'class': 'td left' },
 						(i === 0) ? _('All') : window.cpuStatusDevices[i - 1][0]),
-					E('div', { 'class': 'td left'},
-						(i === 0) ? '' : (cpuData[i] === null) ? '-' : (cpuData[i] / 1000) + ' ' + _('MHz')),
+					(window.cpuStatusFreqSupport) ?
+						E('div', { 'class': 'td left'},
+							(i === 0) ? '' : (cpuData[i] === null) ?
+								'-' : (cpuData[i] / 1000) + ' ' + _('MHz')) : '',
 					E('div', { 'class': 'td left' },
 						E('div', {
 								'class': 'cbi-progressbar',

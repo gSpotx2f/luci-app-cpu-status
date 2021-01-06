@@ -15,8 +15,8 @@ msgstr ""
 msgid "All"
 msgstr "Все"
 
-msgid "Load average"
-msgstr "Средняя загрузка"
+msgid "Load"
+msgstr "Загрузка"
 
 msgid "CPU"
 msgstr "ЦПУ"
