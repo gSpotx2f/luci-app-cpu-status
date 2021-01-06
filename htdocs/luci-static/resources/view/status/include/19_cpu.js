@@ -47,7 +47,8 @@ return L.Class.extend({
 			if(window.cpuStatusFreqSupport) {
 				for(let cpu of window.cpuStatusDevices) {
 					promises.push(
-						L.resolveDefault(fs.read(cpu[1] + '/cpufreq/cpuinfo_cur_freq'), null))
+						fs.trimmed(cpu[1] + '/cpufreq/cpuinfo_cur_freq')
+					)
 				};
 			};
 		};
@@ -72,8 +73,10 @@ return L.Class.extend({
 		let cpuTable = E('div', { 'class': 'table' },
 			E('div', { 'class': 'tr table-titles' }, [
 				E('div', { 'class': 'th left' }, _('CPU')),
+
 				(window.cpuStatusFreqSupport) ?
 						E('div', { 'class': 'th left' }, _('Current frequency')) : '',
+
 				E('div', { 'class': 'th left' }, _('Load')),
 				E('div', { 'class': 'th left' }, 'user'),
 				E('div', { 'class': 'th left' }, 'nice&#160;&#160;'),
@@ -117,10 +120,12 @@ return L.Class.extend({
 				E('div', { 'class': 'tr' }, [
 					E('div', { 'class': 'td left' },
 						(i === 0) ? _('All') : window.cpuStatusDevices[i - 1][0]),
+
 					(window.cpuStatusFreqSupport) ?
 						E('div', { 'class': 'td left'},
-							(i === 0) ? '' : (cpuData[i] === null) ?
+							(i === 0) ? '' : (cpuData[i] === '') ?
 								'-' : (cpuData[i] / 1000) + ' ' + _('MHz')) : '',
+
 					E('div', { 'class': 'td left' },
 						E('div', {
 								'class': 'cbi-progressbar',
