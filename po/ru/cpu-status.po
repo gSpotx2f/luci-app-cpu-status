@@ -26,3 +26,6 @@ msgstr "Текущая частота"
 
 msgid "MHz"
 msgstr "МГц"
+
+msgid "GHz"
+msgstr "Ггц"

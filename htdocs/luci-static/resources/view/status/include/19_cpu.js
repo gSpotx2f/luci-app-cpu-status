@@ -4,6 +4,9 @@
 return L.Class.extend({
 	title: _('CPU'),
 
+	// Show CPU frequency. Not supported by some devices!
+	showCPUFreq: true,
+
 	deviceRegExp: new RegExp('^cpu[0-9]+$'),
 
 	sortFunc: function(a, b) {
@@ -29,13 +32,17 @@ return L.Class.extend({
 				window.cpuStatusDevices = [];
 			});
 
-			// Check CPU clock support
-			if(window.cpuStatusDevices.length > 0) {
-				await fs.stat(window.cpuStatusDevices[0][1] + '/cpufreq/cpuinfo_cur_freq').then(stat => {
-					window.cpuStatusFreqSupport = true;
-				}).catch(e => {
-					window.cpuStatusFreqSupport = false;
-				});
+			// Check CPU frequency support
+			if(this.showCPUFreq) {
+				if(window.cpuStatusDevices.length > 0) {
+					await fs.stat(window.cpuStatusDevices[0][1] + '/cpufreq/cpuinfo_cur_freq').then(stat => {
+						window.cpuStatusFreqSupport = true;
+					}).catch(e => {
+						window.cpuStatusFreqSupport = false;
+					});
+				};
+			} else {
+				window.cpuStatusFreqSupport = false;
 			};
 		};
 
@@ -64,7 +71,7 @@ return L.Class.extend({
 
 		for(let str of statStringsArray) {
 			let arr = str.split(/\s+/).slice(0, 8);
-			arr[0] = (arr[0] === 'cpu') ? -1 : Number(arr[0].replace('cpu', ''));
+			arr[0] = (arr[0] === 'cpu') ? Infinity : Number(arr[0].replace('cpu', ''));
 			cpuStatArray.push(arr);
 		};
 
@@ -72,21 +79,26 @@ return L.Class.extend({
 
 		let cpuTable = E('div', { 'class': 'table' },
 			E('div', { 'class': 'tr table-titles' }, [
-				E('div', { 'class': 'th left' }, _('CPU')),
+				E('div', { 'class': 'th left' }, '#&#160;&#160;&#160;&#160;'),
 
 				(window.cpuStatusFreqSupport) ?
 						E('div', { 'class': 'th left' }, _('Current frequency')) : '',
 
 				E('div', { 'class': 'th left' }, _('Load')),
-				E('div', { 'class': 'th left' }, 'user'),
-				E('div', { 'class': 'th left' }, 'nice&#160;&#160;'),
-				E('div', { 'class': 'th left' }, 'system'),
-				E('div', { 'class': 'th left' }, 'idle&#160;&#160;&#160;'),
-				E('div', { 'class': 'th left' }, 'iowait'),
-				E('div', { 'class': 'th left' }, 'irq&#160;&#160;&#160;&#160;'),
-				E('div', { 'class': 'th left' }, 'softirq'),
+				E('div', { 'class': 'th center' }, '&#160;user&#160;'),
+				E('div', { 'class': 'th center' }, '&#160;nice&#160;'),
+				E('div', { 'class': 'th center' }, 'system'),
+				E('div', { 'class': 'th center' }, '&#160;&#160;idle&#160;&#160;'),
+				E('div', { 'class': 'th center' }, 'iowait'),
+				E('div', { 'class': 'th center' }, '&#160;&#160;irq&#160;&#160;'),
+				E('div', { 'class': 'th center' }, 'softirq'),
 			])
 		);
+
+		// For single-core CPU (hide total)
+		if(cpuStatArray.length === 2) {
+			cpuStatArray = cpuStatArray.slice(0, 1);
+		};
 
 		cpuStatArray.forEach((c, i) => {
 			let loadUser = 0;
@@ -119,12 +131,17 @@ return L.Class.extend({
 			cpuTable.append(
 				E('div', { 'class': 'tr' }, [
 					E('div', { 'class': 'td left' },
-						(i === 0) ? _('All') : window.cpuStatusDevices[i - 1][0]),
+						(cpuStatArray[i][0] === Infinity) ? _('All') : window.cpuStatusDevices[i][0]),
 
 					(window.cpuStatusFreqSupport) ?
 						E('div', { 'class': 'td left'},
-							(i === 0) ? '' : (cpuData[i] === '') ?
-								'-' : (cpuData[i] / 1000) + ' ' + _('MHz')) : '',
+							(cpuStatArray[i][0] === Infinity) ? '' : (cpuData[i + 1] === '') ? '-' :
+								(cpuData[i + 1] >= 1e6) ?
+									(cpuData[i + 1] / 1e6) + ' ' + _('GHz')
+								:
+									(cpuData[i + 1] / 1e3) + ' ' + _('MHz')
+						)
+					: '',
 
 					E('div', { 'class': 'td left' },
 						E('div', {
@@ -134,13 +151,13 @@ return L.Class.extend({
 							E('div', { 'style': 'width:' + loadAvg + '%' })
 						)
 					),
-					E('div', { 'class': 'td left' }, loadUser + '%'),
-					E('div', { 'class': 'td left' }, loadNice + '%'),
-					E('div', { 'class': 'td left' }, loadSys + '%'),
-					E('div', { 'class': 'td left' }, loadIdle + '%'),
-					E('div', { 'class': 'td left' }, loadIo + '%'),
-					E('div', { 'class': 'td left' }, loadIrq + '%'),
-					E('div', { 'class': 'td left' }, loadSirq + '%'),
+					E('div', { 'class': 'td center' }, loadUser + '%'),
+					E('div', { 'class': 'td center' }, loadNice + '%'),
+					E('div', { 'class': 'td center' }, loadSys + '%'),
+					E('div', { 'class': 'td center' }, loadIdle + '%'),
+					E('div', { 'class': 'td center' }, loadIo + '%'),
+					E('div', { 'class': 'td center' }, loadIrq + '%'),
+					E('div', { 'class': 'td center' }, loadSirq + '%'),
 				])
 			);
 		});

@@ -15,3 +15,6 @@ msgstr ""
 
 msgid "MHz"
 msgstr ""
+
+msgid "GHz"
+msgstr ""

@@ -26,3 +26,6 @@ msgstr "当前频率"
 
 msgid "MHz"
 msgstr "兆赫"
+
+msgid "GHz"
+msgstr "吉赫兹"
