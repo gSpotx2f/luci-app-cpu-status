@@ -71,8 +71,8 @@ return L.Class.extend({
 
 		for(let str of statStringsArray) {
 			let arr = str.split(/\s+/).slice(0, 8);
-			arr[0] = (arr[0] === 'cpu') ? Infinity : Number(arr[0].replace('cpu', ''));
-			cpuStatArray.push(arr);
+			arr[0] = (arr[0] === 'cpu') ? Infinity : arr[0].replace('cpu', '');
+			cpuStatArray.push(arr.map(e => Number(e)));
 		};
 
 		cpuStatArray.sort(this.sortFunc);
