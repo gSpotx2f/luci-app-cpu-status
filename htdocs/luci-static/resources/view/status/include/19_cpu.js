@@ -32,7 +32,7 @@ return L.Class.extend({
 				window.cpuStatusDevices = [];
 			});
 
-			// Check CPU frequency support
+			// Check CPU clock support
 			if(this.showCPUFreq) {
 				if(window.cpuStatusDevices.length > 0) {
 					await fs.stat(window.cpuStatusDevices[0][1] + '/cpufreq/cpuinfo_cur_freq').then(stat => {
@@ -77,21 +77,34 @@ return L.Class.extend({
 
 		cpuStatArray.sort(this.sortFunc);
 
+		let cpuTableTitles = [
+			'#',
+			_('Current frequency'),
+			_('Load'),
+			'user %',
+			'nice %',
+			'system %',
+			'idle %',
+			'iowait %',
+			'irq %',
+			'softirq %',
+		];
+
 		let cpuTable = E('div', { 'class': 'table' },
 			E('div', { 'class': 'tr table-titles' }, [
-				E('div', { 'class': 'th left' }, '#&#160;&#160;&#160;&#160;'),
+				E('div', { 'class': 'th left' }, cpuTableTitles[0]),
 
 				(window.cpuStatusFreqSupport) ?
-						E('div', { 'class': 'th left' }, _('Current frequency')) : '',
+						E('div', { 'class': 'th left' }, cpuTableTitles[1]) : '',
 
-				E('div', { 'class': 'th left' }, _('Load')),
-				E('div', { 'class': 'th center' }, '&#160;user&#160;'),
-				E('div', { 'class': 'th center' }, '&#160;nice&#160;'),
-				E('div', { 'class': 'th center' }, 'system'),
-				E('div', { 'class': 'th center' }, '&#160;&#160;idle&#160;&#160;'),
-				E('div', { 'class': 'th center' }, 'iowait'),
-				E('div', { 'class': 'th center' }, '&#160;&#160;irq&#160;&#160;'),
-				E('div', { 'class': 'th center' }, 'softirq'),
+				E('div', { 'class': 'th left' }, cpuTableTitles[2]),
+				E('div', { 'class': 'th center' }, cpuTableTitles[3]),
+				E('div', { 'class': 'th center' }, cpuTableTitles[4]),
+				E('div', { 'class': 'th center' }, cpuTableTitles[5]),
+				E('div', { 'class': 'th center' }, cpuTableTitles[6]),
+				E('div', { 'class': 'th center' }, cpuTableTitles[7]),
+				E('div', { 'class': 'th center' }, cpuTableTitles[8]),
+				E('div', { 'class': 'th center' }, cpuTableTitles[9]),
 			])
 		);
 
@@ -130,12 +143,12 @@ return L.Class.extend({
 
 			cpuTable.append(
 				E('div', { 'class': 'tr' }, [
-					E('div', { 'class': 'td left' },
+					E('div', { 'class': 'td left', 'data-title': cpuTableTitles[0] },
 						(cpuStatArray[i][0] === Infinity) ? _('All') : window.cpuStatusDevices[i][0]),
 
 					(window.cpuStatusFreqSupport) ?
-						E('div', { 'class': 'td left'},
-							(cpuStatArray[i][0] === Infinity) ? '' : (cpuData[i + 1] === '') ? '-' :
+						E('div', { 'class': 'td left', 'data-title': cpuTableTitles[1] },
+							(cpuStatArray[i][0] === Infinity) ? '&#160;' : (cpuData[i + 1] === '') ? '-' :
 								(cpuData[i + 1] >= 1e6) ?
 									(cpuData[i + 1] / 1e6) + ' ' + _('GHz')
 								:
@@ -143,29 +156,28 @@ return L.Class.extend({
 						)
 					: '',
 
-					E('div', { 'class': 'td left' },
+					E('div', { 'class': 'td left', 'data-title': cpuTableTitles[2] },
 						E('div', {
 								'class': 'cbi-progressbar',
 								'title': loadAvg + '%',
+								'style': 'min-width:8em !important',
 							},
 							E('div', { 'style': 'width:' + loadAvg + '%' })
 						)
 					),
-					E('div', { 'class': 'td center' }, loadUser + '%'),
-					E('div', { 'class': 'td center' }, loadNice + '%'),
-					E('div', { 'class': 'td center' }, loadSys + '%'),
-					E('div', { 'class': 'td center' }, loadIdle + '%'),
-					E('div', { 'class': 'td center' }, loadIo + '%'),
-					E('div', { 'class': 'td center' }, loadIrq + '%'),
-					E('div', { 'class': 'td center' }, loadSirq + '%'),
+					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[3] }, loadUser),
+					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[4] }, loadNice),
+					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[5] }, loadSys),
+					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[6] }, loadIdle),
+					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[7] }, loadIo),
+					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[8] }, loadIrq),
+					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[9] }, loadSirq),
 				])
 			);
 		});
 
 		window.cpuStatusStatArray = cpuStatArray;
 
-		return E('div', {
-			'class': 'cbi-section',
-		}, cpuTable);
+		return cpuTable;
 	},
 });
