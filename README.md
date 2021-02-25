@@ -3,7 +3,7 @@ CPU utilization info for the LuCI status page (OpenWrt webUI).
 
 OpenWrt >= 19.07.
 
-Minimal version: [luci-app-cpu-status-mini](https://github.com/gSpotx2f/luci-app-cpu-status-mini).
+Simple version: [luci-app-cpu-status-mini](https://github.com/gSpotx2f/luci-app-cpu-status-mini).
 
 **Installation notes:**
 
