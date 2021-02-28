@@ -15,6 +15,8 @@ return L.Class.extend({
 
 	load: async function() {
 		if(!('cpuStatusDevices' in window)) {
+			// This code is executed only once (during the loading of the status page)
+
 			await fs.list('/sys/devices/system/cpu').then(stat => {
 				let devices = [];
 
@@ -32,18 +34,7 @@ return L.Class.extend({
 				window.cpuStatusDevices = [];
 			});
 
-			// Check CPU clock support
-			if(this.showCPUFreq) {
-				if(window.cpuStatusDevices.length > 0) {
-					await fs.stat(window.cpuStatusDevices[0][1] + '/cpufreq/cpuinfo_cur_freq').then(stat => {
-						window.cpuStatusFreqSupport = true;
-					}).catch(e => {
-						window.cpuStatusFreqSupport = false;
-					});
-				};
-			} else {
-				window.cpuStatusFreqSupport = false;
-			};
+			window.cpuStatusFreqSupport = this.showCPUFreq;
 		};
 
 		let promises = [];
@@ -76,6 +67,15 @@ return L.Class.extend({
 		};
 
 		cpuStatArray.sort(this.sortFunc);
+
+		// Check CPU frequency support
+		if(window.cpuStatusFreqSupport) {
+			cpuData.forEach(freqVal => {
+				if(!freqVal) {
+					window.cpuStatusFreqSupport = false;
+				};
+			});
+		};
 
 		let cpuTableTitles = [
 			'#',
@@ -131,13 +131,13 @@ return L.Class.extend({
 				let irq = c[6] - window.cpuStatusStatArray[i][6];
 				let sirq = c[7] - window.cpuStatusStatArray[i][7];
 				let sum = user + nice + sys + idle + io + irq + sirq;
-				loadUser = Math.round(100 * user / sum);
-				loadNice = Math.round(100 * nice / sum);
-				loadSys = Math.round(100 * sys / sum);
-				loadIdle = Math.round(100 * idle / sum);
-				loadIo = Math.round(100 * io / sum);
-				loadIrq = Math.round(100 * irq / sum);
-				loadSirq = Math.round(100 * sirq / sum);
+				loadUser = Number((100 * user / sum).toFixed(1));
+				loadNice = Number((100 * nice / sum).toFixed(1));
+				loadSys = Number((100 * sys / sum).toFixed(1));
+				loadIdle = Number((100 * idle / sum).toFixed(1));
+				loadIo = Number((100 * io / sum).toFixed(1));
+				loadIrq = Number((100 * irq / sum).toFixed(1));
+				loadSirq = Number((100 * sirq / sum).toFixed(1));
 				loadAvg = Math.round(100 * (user + nice + sys + io + irq + sirq) / sum);
 			};
 
@@ -148,7 +148,7 @@ return L.Class.extend({
 
 					(window.cpuStatusFreqSupport) ?
 						E('div', { 'class': 'td left', 'data-title': cpuTableTitles[1] },
-							(cpuStatArray[i][0] === Infinity) ? '&#160;' : (cpuData[i + 1] === '') ? '-' :
+							(cpuStatArray[i][0] === Infinity) ? '&#160;' :
 								(cpuData[i + 1] >= 1e6) ?
 									(cpuData[i + 1] / 1e6) + ' ' + _('GHz')
 								:
