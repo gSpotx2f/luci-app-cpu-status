@@ -1,10 +1,10 @@
 #!/usr/bin/env lua
 
-local json	= require "luci.jsonc"
-local fs	= require "nixio.fs"
+local json = require "luci.jsonc"
+local fs   = require "nixio.fs"
 
-local cpuStatPath	= "/proc/stat"
-local cpuSysDir		= "/sys/devices/system/cpu"
+local cpuStatPath = "/proc/stat"
+local cpuSysDir   = "/sys/devices/system/cpu"
 
 local function readFile(path)
 	local s = fs.readfile(path)
@@ -16,8 +16,8 @@ local function list()
 end
 
 local function readCpuStat()
-	local statTable	= {}
-	local handler	= io.open(cpuStatPath, "r")
+	local statTable = {}
+	local handler   = io.open(cpuStatPath, "r")
 	while true do
 		local line = handler:read("*l")
 		if not line then
@@ -27,13 +27,13 @@ local function readCpuStat()
 			local cpu, user, nice, sys, idle, iowait, irq, sirq = line:match(
 				"^(%w+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)")
 			statTable[cpu] = {
-				["user"]	= tonumber(user),
-				["nice"]	= tonumber(nice),
-				["sys"]		= tonumber(sys),
-				["idle"]	= tonumber(idle),
-				["iowait"]	= tonumber(iowait),
-				["irq"]		= tonumber(irq),
-				["sirq"]	= tonumber(sirq),
+				["user"]   = tonumber(user),
+				["nice"]   = tonumber(nice),
+				["sys"]    = tonumber(sys),
+				["idle"]   = tonumber(idle),
+				["iowait"] = tonumber(iowait),
+				["irq"]    = tonumber(irq),
+				["sirq"]   = tonumber(sirq),
 			}
 		end
 	end
