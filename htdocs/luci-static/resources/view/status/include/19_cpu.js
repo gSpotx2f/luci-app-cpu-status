@@ -1,8 +1,9 @@
 'use strict';
+'require baseclass';
 'require fs';
 'require rpc';
 
-return L.Class.extend({
+return baseclass.extend({
 	title: _('CPU'),
 
 	// Show CPU frequency. Not supported by some devices!
