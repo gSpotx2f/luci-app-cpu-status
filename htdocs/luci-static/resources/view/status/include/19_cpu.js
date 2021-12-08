@@ -65,21 +65,21 @@ return baseclass.extend({
 			'softirq %',
 		];
 
-		let cpuTable = E('div', { 'class': 'table' },
-			E('div', { 'class': 'tr table-titles' }, [
-				E('div', { 'class': 'th left' }, cpuTableTitles[0]),
+		let cpuTable = E('table', { 'class': 'table' },
+			E('tr', { 'class': 'tr table-titles' }, [
+				E('th', { 'class': 'th left' }, cpuTableTitles[0]),
 
 				(window.cpuStatusFreqSupport) ?
-					E('div', { 'class': 'th left' }, cpuTableTitles[1]) : '',
+					E('th', { 'class': 'th left' }, cpuTableTitles[1]) : '',
 
-				E('div', { 'class': 'th left' }, cpuTableTitles[2]),
-				E('div', { 'class': 'th center' }, cpuTableTitles[3]),
-				E('div', { 'class': 'th center' }, cpuTableTitles[4]),
-				E('div', { 'class': 'th center' }, cpuTableTitles[5]),
-				E('div', { 'class': 'th center' }, cpuTableTitles[6]),
-				E('div', { 'class': 'th center' }, cpuTableTitles[7]),
-				E('div', { 'class': 'th center' }, cpuTableTitles[8]),
-				E('div', { 'class': 'th center' }, cpuTableTitles[9]),
+				E('th', { 'class': 'th left' }, cpuTableTitles[2]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[3]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[4]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[5]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[6]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[7]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[8]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[9]),
 			])
 		);
 
@@ -117,12 +117,12 @@ return baseclass.extend({
 			};
 
 			cpuTable.append(
-				E('div', { 'class': 'tr' }, [
-					E('div', { 'class': 'td left', 'data-title': cpuTableTitles[0] },
+				E('tr', { 'class': 'tr' }, [
+					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[0] },
 						(device === 'cpu') ? _('All') : device.replace(/[^0-9]+/, "")),
 
 					(window.cpuStatusFreqSupport) ?
-						E('div', { 'class': 'td left', 'data-title': cpuTableTitles[1] },
+						E('td', { 'class': 'td left', 'data-title': cpuTableTitles[1] },
 							(device === 'cpu') ? '&#160;' :
 								(cpuData[device].freq >= 1e6) ?
 									(cpuData[device].freq / 1e6) + ' ' + _('GHz')
@@ -131,7 +131,7 @@ return baseclass.extend({
 						)
 					: '',
 
-					E('div', { 'class': 'td left', 'data-title': cpuTableTitles[2] },
+					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[2] },
 						E('div', {
 								'class': 'cbi-progressbar',
 								'title': loadAvg + '%',
@@ -140,13 +140,13 @@ return baseclass.extend({
 							E('div', { 'style': 'width:' + loadAvg + '%' })
 						)
 					),
-					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[3] }, loadUser),
-					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[4] }, loadNice),
-					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[5] }, loadSys),
-					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[6] }, loadIdle),
-					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[7] }, loadIowait),
-					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[8] }, loadIrq),
-					E('div', { 'class': 'td center', 'data-title': cpuTableTitles[9] }, loadSirq),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[3] }, loadUser),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[4] }, loadNice),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[5] }, loadSys),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[6] }, loadIdle),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[7] }, loadIowait),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[8] }, loadIrq),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[9] }, loadSirq),
 				])
 			);
 		});
