@@ -17,12 +17,8 @@ end
 
 local function readCpuStat()
 	local statTable = {}
-	local handler   = io.open(cpuStatPath, "r")
-	while true do
-		local line = handler:read("*l")
-		if not line then
-			break
-		end
+	local fh        = io.open(cpuStatPath, "r")
+	for line in fh:lines() do
 		if line:match("^cpu") then
 			local cpu, user, nice, sys, idle, iowait, irq, sirq = line:match(
 				"^(%w+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)%s+(%d+)")
@@ -37,7 +33,7 @@ local function readCpuStat()
 			}
 		end
 	end
-	handler:close()
+	fh:close()
 	return statTable
 end
 
