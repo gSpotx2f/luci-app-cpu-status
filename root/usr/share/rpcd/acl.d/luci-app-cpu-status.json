@@ -2,8 +2,8 @@
 	"luci-app-cpu-status": {
 		"description": "Grant access to cpu-status procedures",
 		"read": {
-			"ubus": {
-				"luci.cpu-status": [ "getCpuStat", "getCpuStatFreq" ]
+			"file": {
+				"/proc/stat": [ "read" ]
 			}
 		}
 	}

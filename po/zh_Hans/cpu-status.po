@@ -12,20 +12,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "Language: zh_Hans\n"
 
-msgid "All"
-msgstr "全部"
+msgid "CPU"
+msgstr "处理器"
+
+msgid "CPU Load"
+msgstr ""
 
 msgid "Load"
 msgstr "负荷"
 
-msgid "CPU"
-msgstr "处理器"
-
-msgid "Current frequency"
-msgstr "当前频率"
-
-msgid "MHz"
-msgstr "兆赫"
-
-msgid "GHz"
-msgstr "吉赫兹"
+msgid "Total Load"
+msgstr ""

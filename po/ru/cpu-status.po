@@ -12,20 +12,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "Language: ru\n"
 
-msgid "All"
-msgstr "Все"
+msgid "CPU"
+msgstr "ЦПУ"
+
+msgid "CPU Load"
+msgstr "Загрузка ЦПУ"
 
 msgid "Load"
 msgstr "Загрузка"
 
-msgid "CPU"
-msgstr "ЦПУ"
-
-msgid "Current frequency"
-msgstr "Текущая частота"
-
-msgid "MHz"
-msgstr "МГц"
-
-msgid "GHz"
-msgstr "Ггц"
+msgid "Total Load"
+msgstr "Общая загрузка"
