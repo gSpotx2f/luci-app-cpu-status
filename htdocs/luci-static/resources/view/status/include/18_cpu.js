@@ -89,7 +89,7 @@ return baseclass.extend({
 					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[1] },
 						E('div', {
 								'class': 'cbi-progressbar',
-								'title': loadAvg + '%',
+								'title': ('cpuStatusStatArray' in window) ? loadAvg + '%' : _('Calculating') + '...',
 								'style': 'min-width:8em !important',
 							},
 							E('div', { 'style': 'width:' + loadAvg + '%' })
