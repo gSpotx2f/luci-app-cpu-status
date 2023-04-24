@@ -3,9 +3,11 @@
 'require fs';
 
 return baseclass.extend({
-	title : _('CPU Load'),
+	title    : _('CPU Load'),
 
-	load  : function() {
+	statArray: null,
+
+	load     : function() {
 		return L.resolveDefault(fs.read('/proc/stat'), null);
 	},
 
@@ -63,14 +65,14 @@ return baseclass.extend({
 			    loadIrq  = 0,
 			    loadSirq = 0,
 			    loadAvg  = 0;
-			if('cpuStatusStatArray' in window) {
-				let user = c[1] - window.cpuStatusStatArray[i][1],
-				    nice = c[2] - window.cpuStatusStatArray[i][2],
-				    sys  = c[3] - window.cpuStatusStatArray[i][3],
-				    idle = c[4] - window.cpuStatusStatArray[i][4],
-				    io   = c[5] - window.cpuStatusStatArray[i][5],
-				    irq  = c[6] - window.cpuStatusStatArray[i][6],
-				    sirq = c[7] - window.cpuStatusStatArray[i][7];
+			if(this.statArray !== null) {
+				let user = c[1] - this.statArray[i][1],
+				    nice = c[2] - this.statArray[i][2],
+				    sys  = c[3] - this.statArray[i][3],
+				    idle = c[4] - this.statArray[i][4],
+				    io   = c[5] - this.statArray[i][5],
+				    irq  = c[6] - this.statArray[i][6],
+				    sirq = c[7] - this.statArray[i][7];
 				let sum  = user + nice + sys + idle + io + irq + sirq;
 				loadUser = Number((100 * user / sum).toFixed(1));
 				loadNice = Number((100 * nice / sum).toFixed(1));
@@ -89,7 +91,7 @@ return baseclass.extend({
 					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[1] },
 						E('div', {
 								'class': 'cbi-progressbar',
-								'title': ('cpuStatusStatArray' in window) ? loadAvg + '%' : _('Calculating') + '...',
+								'title': (this.statArray !== null) ? loadAvg + '%' : _('Calculating') + '...',
 								'style': 'min-width:8em !important',
 							},
 							E('div', { 'style': 'width:' + loadAvg + '%' })
@@ -106,7 +108,7 @@ return baseclass.extend({
 			);
 		});
 
-		window.cpuStatusStatArray = cpuStatArray;
+		this.statArray = cpuStatArray;
 		return cpuTable;
 	},
 });
