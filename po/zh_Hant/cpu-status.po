@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LuCI CPU 狀態\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Victor Tseng <palatis@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgid "Calculating"
+msgstr "計算中…"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "CPU Load"
+msgstr "CPU 負載"
+
+msgid "Load"
+msgstr "負載"
+
+msgid "Total Load"
+msgstr "總負載"
