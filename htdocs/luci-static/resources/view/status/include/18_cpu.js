@@ -7,11 +7,11 @@ return baseclass.extend({
 
 	statArray: null,
 
-	load     : function() {
+	load() {
 		return L.resolveDefault(fs.read('/proc/stat'), null);
 	},
 
-	render: function(cpuData) {
+	render(cpuData) {
 		if(!cpuData) return;
 
 		let cpuStatArray   = [];
@@ -46,13 +46,13 @@ return baseclass.extend({
 			E('tr', { 'class': 'tr table-titles' }, [
 				E('th', { 'class': 'th left' }, cpuTableTitles[0]),
 				E('th', { 'class': 'th left' }, cpuTableTitles[1]),
-				E('th', { 'class': 'th left' }, cpuTableTitles[2]),
-				E('th', { 'class': 'th left' }, cpuTableTitles[3]),
-				E('th', { 'class': 'th left' }, cpuTableTitles[4]),
-				E('th', { 'class': 'th left' }, cpuTableTitles[5]),
-				E('th', { 'class': 'th left' }, cpuTableTitles[6]),
-				E('th', { 'class': 'th left' }, cpuTableTitles[7]),
-				E('th', { 'class': 'th left' }, cpuTableTitles[8]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[2]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[3]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[4]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[5]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[6]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[7]),
+				E('th', { 'class': 'th center' }, cpuTableTitles[8]),
 			])
 		);
 
@@ -97,13 +97,13 @@ return baseclass.extend({
 							E('div', { 'style': 'width:' + loadAvg + '%' })
 						)
 					),
-					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[2] }, loadUser),
-					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[3] }, loadNice),
-					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[4] }, loadSys),
-					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[5] }, loadIdle),
-					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[6] }, loadIo),
-					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[7] }, loadIrq),
-					E('td', { 'class': 'td left', 'data-title': cpuTableTitles[8] }, loadSirq),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[2] }, loadUser),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[3] }, loadNice),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[4] }, loadSys),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[5] }, loadIdle),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[6] }, loadIo),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[7] }, loadIrq),
+					E('td', { 'class': 'td center', 'data-title': cpuTableTitles[8] }, loadSirq),
 				])
 			);
 		});
