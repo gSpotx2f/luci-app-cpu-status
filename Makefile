@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020 gSpot (https://github.com/gSpotx2f/luci-app-cpu-status)
+# Copyright (C) 2024 gSpot (https://github.com/gSpotx2f/luci-app-cpu-status)
 #
 # This is free software, licensed under the MIT License.
 #
