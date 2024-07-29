@@ -12,6 +12,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "Language: ru\n"
 
+msgid "All CPUs"
+msgstr "Все ЦПУ"
+
 msgid "Calculating"
 msgstr "Вычисление"
 
@@ -21,8 +24,17 @@ msgstr "ЦПУ"
 msgid "CPU Load"
 msgstr "Загрузка ЦПУ"
 
+msgid "Detailed load"
+msgstr "Подробная загрузка"
+
+msgid "Detailed load of each CPU"
+msgstr "Подробная загрузка каждого ЦПУ"
+
 msgid "Load"
 msgstr "Загрузка"
 
-msgid "Total Load"
+msgid "Load of each CPU"
+msgstr "Загрузка каждого ЦПУ"
+
+msgid "Total load"
 msgstr "Общая загрузка"
