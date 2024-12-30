@@ -10,31 +10,31 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"Language: zh_Hans\n"
+"Language: zh_Hant\n"
 
 msgid "All CPUs"
 msgstr "所有 CPUs"
 
 msgid "Calculating"
-msgstr "计算中"
+msgstr "計算中"
 
 msgid "CPU"
 msgstr "CPU"
 
 msgid "CPU Load"
-msgstr "CPU 负载"
+msgstr "CPU 負載"
 
 msgid "Detailed load"
-msgstr "详细负载"
+msgstr "詳細負載"
 
 msgid "Detailed load of each CPU"
-msgstr "详细负载 (每个 CPU)"
+msgstr "詳細負載 (每個 CPU)"
 
 msgid "Load"
-msgstr "负载"
+msgstr "負載"
 
 msgid "Load of each CPU"
-msgstr "负载 (每个 CPU)"
+msgstr "負載 (每個 CPU)"
 
 msgid "Total load"
-msgstr "总负载"
+msgstr "總負載"
