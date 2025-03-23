@@ -62,7 +62,6 @@ return baseclass.extend({
 		};
 
 		cpuStatArray.sort((a, b) => a[0] - b[0]);
-
 		return cpuStatArray;
 	},
 
@@ -77,7 +76,7 @@ return baseclass.extend({
 			    loadIrq  = 0,
 			    loadSirq = 0,
 			    loadAvg  = 0;
-			if(this.lastStatArray !== null) {
+			if(this.lastStatArray !== null && this.lastStatArray.cpuNum === c.cpuNum) {
 				let user = c[1] - this.lastStatArray[i][1],
 				    nice = c[2] - this.lastStatArray[i][2],
 				    sys  = c[3] - this.lastStatArray[i][3],
@@ -95,7 +94,8 @@ return baseclass.extend({
 				loadSirq = Number((100 * sirq / sum).toFixed(1));
 				loadAvg  = Math.round(100 * (user + nice + sys + io + irq + sirq) / sum);
 			};
-			retArray.push({loadUser, loadNice, loadSys, loadIdle, loadIo, loadIrq, loadSirq, loadAvg});
+			retArray.push(
+				{cpuNum: c[0], loadUser, loadNice, loadSys, loadIdle, loadIo, loadIrq, loadSirq, loadAvg});
 		});
 		return retArray;
 	},
@@ -104,7 +104,7 @@ return baseclass.extend({
 		makeTable() {
 			this.table = E('table', { 'class': 'table' });
 		},
-		append(cpuNum, cpuLoadObj, lastStatArray) {
+		append(cpuNum, cpuLoadObj, cpuLoadFlag) {
 			if(cpuNum === Infinity) {
 				this.table.append(
 					E('tr', { 'class': 'tr' }, [
@@ -113,7 +113,7 @@ return baseclass.extend({
 						E('td', { 'class': 'td' },
 							E('div', {
 									'class': 'cbi-progressbar',
-									'title': (lastStatArray !== null) ?
+									'title': (cpuLoadFlag) ?
 										cpuLoadObj.loadAvg + '%' :
 										_('Calculating') + '...',
 								},
@@ -153,7 +153,7 @@ return baseclass.extend({
 				])
 			);
 		},
-		append(cpuNum, cpuLoadObj, lastStatArray) {
+		append(cpuNum, cpuLoadObj, cpuLoadFlag) {
 			if(cpuNum === Infinity) {
 				this.table.append(
 					E('tr', { 'class': 'tr' }, [
@@ -162,7 +162,7 @@ return baseclass.extend({
 						E('td', { 'class': 'td left', 'data-title': this.cpuTableTitles[1] },
 							E('div', {
 									'class': 'cbi-progressbar',
-									'title': (lastStatArray !== null) ?
+									'title': (cpuLoadFlag) ?
 										cpuLoadObj.loadAvg + '%' :
 										_('Calculating') + '...',
 									'style': 'min-width:8em !important',
@@ -194,7 +194,7 @@ return baseclass.extend({
 		makeTable() {
 			this.table = E('table', { 'class': 'table' });
 		},
-		append(cpuNum, cpuLoadObj, lastStatArray) {
+		append(cpuNum, cpuLoadObj, cpuLoadFlag) {
 			this.table.append(
 				E('tr', { 'class': 'tr' }, [
 					E('td', { 'class': 'td left', 'width': '33%' },
@@ -202,7 +202,7 @@ return baseclass.extend({
 					E('td', { 'class': 'td' },
 						E('div', {
 								'class': 'cbi-progressbar',
-								'title': (lastStatArray !== null) ?
+								'title': (cpuLoadFlag) ?
 									cpuLoadObj.loadAvg + '%' :
 									_('Calculating') + '...',
 							},
@@ -241,7 +241,7 @@ return baseclass.extend({
 				])
 			);
 		},
-		append(cpuNum, cpuLoadObj, lastStatArray) {
+		append(cpuNum, cpuLoadObj, cpuLoadFlag) {
 			this.table.append(
 				E('tr', { 'class': 'tr' }, [
 					E('td', { 'class': 'td left', 'data-title': this.cpuTableTitles[0] },
@@ -249,7 +249,7 @@ return baseclass.extend({
 					E('td', { 'class': 'td left', 'data-title': this.cpuTableTitles[1] },
 						E('div', {
 								'class': 'cbi-progressbar',
-								'title': (lastStatArray !== null) ?
+								'title': (cpuLoadFlag) ?
 									cpuLoadObj.loadAvg + '%' :
 									_('Calculating') + '...',
 								'style': 'min-width:8em !important',
@@ -276,13 +276,13 @@ return baseclass.extend({
 		},
 	},
 
-	makeCPUTable(cpuStatArray, cpuLoadArray) {
+	makeCPUTable(cpuLoadArray) {
 		let currentView = (this.availableViewModes[this.viewMode] !== undefined) ?
 			this[this.availableViewModes[this.viewMode][0]] :
 			this[this.availableViewModes[0][0]];
 		currentView.makeTable();
 		cpuLoadArray.forEach((c, i) => {
-			currentView.append(cpuStatArray[i][0], c, this.lastStatArray);
+			currentView.append(c.cpuNum, c, (this.lastStatArray !== null));
 		});
 		return currentView.table;
 	},
@@ -306,7 +306,7 @@ return baseclass.extend({
 		};
 
 		let cpuLoadArray = this.calcCPULoad(cpuStatArray);
-		let cpuTable = this.makeCPUTable(cpuStatArray, cpuLoadArray);
+		let cpuTable = this.makeCPUTable(cpuLoadArray);
 
 		let viewModeSelectFunc = value => {
 			this.saveSettingsToLocalStorage(value);
@@ -315,7 +315,7 @@ return baseclass.extend({
 				i.classList.remove('cpu-status-view-mode-entry-checked');
 			});
 			viewModeEntries[value].classList.add('cpu-status-view-mode-entry-checked');
-			let newTable = this.makeCPUTable(cpuStatArray, cpuLoadArray);
+			let newTable = this.makeCPUTable(cpuLoadArray);
 			cpuTable.replaceWith(newTable);
 			cpuTable = newTable;
 		};
