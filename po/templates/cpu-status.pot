@@ -1,7 +1,13 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+msgid "(%d minute window, %d second interval)"
+msgstr ""
+
 msgid "All CPUs"
+msgstr ""
+
+msgid "Average:"
 msgstr ""
 
 msgid "Calculating"
@@ -11,6 +17,9 @@ msgid "CPU"
 msgstr ""
 
 msgid "CPU Load"
+msgstr ""
+
+msgid "CPU load"
 msgstr ""
 
 msgid "Detailed load"
@@ -23,6 +32,15 @@ msgid "Load"
 msgstr ""
 
 msgid "Load of each CPU"
+msgstr ""
+
+msgid "Peak:"
+msgstr ""
+
+msgid "This page displays the average CPU load at %d second interval."
+msgstr ""
+
+msgid "Total"
 msgstr ""
 
 msgid "Total load"

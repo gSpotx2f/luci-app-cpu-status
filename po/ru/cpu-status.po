@@ -12,8 +12,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "Language: ru\n"
 
+msgid "(%d minute window, %d second interval)"
+msgstr "(%d минутное окно, %d секундный интервал)"
+
 msgid "All CPUs"
 msgstr "Все ЦПУ"
+
+msgid "Average:"
+msgstr "Средняя:"
 
 msgid "Calculating"
 msgstr "Вычисление"
@@ -22,6 +28,9 @@ msgid "CPU"
 msgstr "ЦПУ"
 
 msgid "CPU Load"
+msgstr "Загрузка ЦПУ"
+
+msgid "CPU load"
 msgstr "Загрузка ЦПУ"
 
 msgid "Detailed load"
@@ -35,6 +44,15 @@ msgstr "Загрузка"
 
 msgid "Load of each CPU"
 msgstr "Загрузка каждого ЦПУ"
+
+msgid "Peak:"
+msgstr "Пиковая:"
+
+msgid "This page displays the average CPU load at %d second interval."
+msgstr "На этой странице отображается средняя загрузка ЦПУ за %d секундный интервал."
+
+msgid "Total"
+msgstr "Общая"
 
 msgid "Total load"
 msgstr "Общая загрузка"

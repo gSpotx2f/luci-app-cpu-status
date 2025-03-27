@@ -1,0 +1,13 @@
+{
+	"admin/status/realtime/cpu": {
+		"title": "CPU",
+		"order": 9,
+		"action": {
+			"type": "view",
+			"path": "status/cpu"
+		},
+		"depends": {
+			"acl": [ "luci-app-cpu-status" ]
+		}
+	}
+}
