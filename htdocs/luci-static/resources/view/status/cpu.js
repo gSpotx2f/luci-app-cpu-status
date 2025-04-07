@@ -332,6 +332,7 @@ return view.extend({
 						let nonempty = 0;
 						for(let j = 0; j < values[i].length; j++) {
 							info.line_peak[i] = isNaN(info.line_peak[i]) ? values[i][j] : Math.max(info.line_peak[i], values[i][j]);
+							info.line_peak[i] = Number(info.line_peak[i].toFixed(1));
 
 							if(!isNaN(values[i][j])) {
 								nonempty++;
@@ -340,6 +341,7 @@ return view.extend({
 						};
 
 						info.line_average[i] = info.line_average[i] / nonempty;
+						info.line_average[i] = Number(info.line_average[i].toFixed(1));
 					};
 
 					/* remember current timestamp, calculate horizontal scale */
@@ -471,21 +473,21 @@ return view.extend({
 
 					tab.querySelector('[data-graph="scale"]').firstChild.data = _('(%d minute window, %d second interval)').format(info.timeframe, info.interval);
 
-					dom.content(tab.querySelector('[data-graph="total_cur"]'), '%d %%'.format(info.line_current[0], true));
-					dom.content(tab.querySelector('[data-graph="total_avg"]'), '%d %%'.format(info.line_average[0], true));
-					dom.content(tab.querySelector('[data-graph="total_peak"]'), '%d %%'.format(info.line_peak[0], true));
+					dom.content(tab.querySelector('[data-graph="total_cur"]'), info.line_current[0] + ' %');
+					dom.content(tab.querySelector('[data-graph="total_avg"]'), info.line_average[0] + ' %');
+					dom.content(tab.querySelector('[data-graph="total_peak"]'), info.line_peak[0] + ' %');
 
-					dom.content(tab.querySelector('[data-graph="user_cur"]'), '%d %%'.format(info.line_current[1], true));
-					dom.content(tab.querySelector('[data-graph="user_avg"]'), '%d %%'.format(info.line_average[1], true));
-					dom.content(tab.querySelector('[data-graph="user_peak"]'), '%d %%'.format(info.line_peak[1], true));
+					dom.content(tab.querySelector('[data-graph="user_cur"]'), info.line_current[1] + ' %');
+					dom.content(tab.querySelector('[data-graph="user_avg"]'), info.line_average[1] + ' %');
+					dom.content(tab.querySelector('[data-graph="user_peak"]'), info.line_peak[1] + ' %');
 
-					dom.content(tab.querySelector('[data-graph="sys_cur"]'), '%d %%'.format(info.line_current[2], true));
-					dom.content(tab.querySelector('[data-graph="sys_avg"]'), '%d %%'.format(info.line_average[2], true));
-					dom.content(tab.querySelector('[data-graph="sys_peak"]'), '%d %%'.format(info.line_peak[2], true));
+					dom.content(tab.querySelector('[data-graph="sys_cur"]'), info.line_current[2] + ' %');
+					dom.content(tab.querySelector('[data-graph="sys_avg"]'), info.line_average[2] + ' %');
+					dom.content(tab.querySelector('[data-graph="sys_peak"]'), info.line_peak[2] + ' %');
 
-					dom.content(tab.querySelector('[data-graph="sirq_cur"]'), '%d %%'.format(info.line_current[3], true));
-					dom.content(tab.querySelector('[data-graph="sirq_avg"]'), '%d %%'.format(info.line_average[3], true));
-					dom.content(tab.querySelector('[data-graph="sirq_peak"]'), '%d %%'.format(info.line_peak[3], true));
+					dom.content(tab.querySelector('[data-graph="sirq_cur"]'), info.line_current[3] + ' %');
+					dom.content(tab.querySelector('[data-graph="sirq_avg"]'), info.line_average[3] + ' %');
+					dom.content(tab.querySelector('[data-graph="sirq_peak"]'), info.line_peak[3] + ' %');
 				}
 			);
 		};

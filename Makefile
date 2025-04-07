@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-cpu-status
-PKG_VERSION:=0.6.0
+PKG_VERSION:=0.6.1
 PKG_RELEASE:=1
 LUCI_TITLE:=CPU utilization info for the LuCI status page
 LUCI_PKGARCH:=all
