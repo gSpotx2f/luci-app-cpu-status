@@ -12,29 +12,47 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "Language: zh_Hans\n"
 
+msgid "(%d minute window, %d second interval)"
+msgstr "（最近 %d 分钟信息，每 %d 秒刷新）"
+
 msgid "All CPUs"
-msgstr "所有 CPUs"
+msgstr "所有 CPU"
+
+msgid "Average:"
+msgstr "平均："
 
 msgid "Calculating"
-msgstr "计算中"
+msgstr "计算中..."
 
 msgid "CPU"
 msgstr "CPU"
 
 msgid "CPU Load"
+msgstr "CPU"
+
+msgid "CPU load"
 msgstr "CPU 负载"
 
 msgid "Detailed load"
-msgstr "详细负载"
+msgstr "负载详情"
 
 msgid "Detailed load of each CPU"
-msgstr "详细负载 (每个 CPU)"
+msgstr "各 CPU 负载详情"
 
 msgid "Load"
 msgstr "负载"
 
 msgid "Load of each CPU"
-msgstr "负载 (每个 CPU)"
+msgstr "各 CPU 负载"
+
+msgid "Peak:"
+msgstr "峰值："
+
+msgid "This page displays the average CPU load at %d second interval."
+msgstr "此页面展示 %d 秒内 CPU 平均负载。"
+
+msgid "Total"
+msgstr "总计"
 
 msgid "Total load"
 msgstr "总负载"
