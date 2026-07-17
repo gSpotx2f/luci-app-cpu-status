@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Language: pl\n"
+
+msgid "(%d minute window, %d second interval)"
+msgstr "(%d minutowe okno, %d sekundowy interwał)"
+
+msgid "All CPUs"
+msgstr "Wszystkie procesory"
+
+msgid "Average:"
+msgstr "Średnia:"
+
+msgid "Calculating"
+msgstr "Obliczanie"
+
+msgid "CPU"
+msgstr "Procesor"
+
+msgid "CPU Load"
+msgstr "Obciążenie procesora"
+
+msgid "CPU load"
+msgstr "Obciążenie procesora"
+
+msgid "Detailed load"
+msgstr "Szczegółowe obciążenie"
+
+msgid "Detailed load of each CPU"
+msgstr "Szczegółowe obciążenie każdego procesora"
+
+msgid "Load"
+msgstr "Obciążenie"
+
+msgid "Load of each CPU"
+msgstr "Obciążenie każdego procesora"
+
+msgid "Peak:"
+msgstr "Szczytowe:"
+
+msgid "This page displays the average CPU load at %d second interval."
+msgstr "Ta strona wyświetla średnie obciążenie procesora w %d sekundowych odstępach."
+
+msgid "Total"
+msgstr "Łącznie"
+
+msgid "Total load"
+msgstr "Łączne obciążenie"
